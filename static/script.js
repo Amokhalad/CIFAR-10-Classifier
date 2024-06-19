@@ -7,7 +7,7 @@ let cache = new Map();
 let incorrectImages = JSON.parse(localStorage.getItem("incorrectImages")) || [];
 
 // Load initial batch of static data
-fetch("../data/static_data.json")
+fetch("/data/static_data.json")
 	.then((response) => response.json())
 	.then((data) => {
 		data.forEach((item) => cache.set(item.index, item));
@@ -29,7 +29,7 @@ async function displayImage(index) {
 		const labelElement = document.getElementById("label");
 		const imageCard = document.querySelector(".image-card");
 
-		imageElement.src = "../data/" + data.image_path;
+		imageElement.src = "/data/" + data.image_path;
 		titleElement.textContent = `Image #${index + 1}`;
 		predictionElement.textContent = data.prediction;
 		labelElement.textContent = data.label;
