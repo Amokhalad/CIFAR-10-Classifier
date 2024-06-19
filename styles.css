@@ -1,0 +1,40 @@
+body {
+    padding: 20px;
+}
+
+.card {
+    margin: 20px 0;
+}
+
+.image-card img {
+    width: 100%;
+    /* Adjust the size of the image */
+    height: auto;
+}
+
+.incorrect {
+    color: red;
+    font-weight: bold;
+}
+
+.incorrect-border {
+    border-radius: 5px;
+    border: 2px solid red;
+}
+
+.correct {
+    color: green;
+    font-weight: bold;
+}
+
+.correct-border {
+    border-radius: 5px;
+    border: 2px solid green;
+}
+
+.grey-border {
+    border-radius: 5px;
+    border: 2px solid rgb(170, 165, 165);
+}
+
+
