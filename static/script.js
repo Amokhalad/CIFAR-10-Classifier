@@ -7,7 +7,7 @@ let cache = new Map();
 let incorrectImages = JSON.parse(localStorage.getItem("incorrectImages")) || [];
 
 // Load initial batch of static data
-fetch("static_data.json")
+fetch("../data/static_data.json")
 	.then((response) => response.json())
 	.then((data) => {
 		data.forEach((item) => cache.set(item.index, item));
