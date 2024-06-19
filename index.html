@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div class="container my-5">
+    <div class="container my-6">
         <header class="mb-5">
             <h1 class="display-4">CIFAR-10 Image Classifier</h1>
             <p class="lead">This project demonstrates a CIFAR-10 image classification model. You can view images from
@@ -53,6 +53,7 @@
                 </div>
             </div>
         </div>
+
         <section class="mt-5">
             <button class="btn btn-light grey-border" type="button" data-toggle="collapse"
                 data-target="#incorrect-list-collapse" aria-expanded="false" aria-controls="incorrect-list-collapse">
@@ -65,12 +66,10 @@
 
         <section class="mt-5">
             <h2 class="h4">Training Method</h2>
-            <p class="text-muted">
-                The model was trained using a ResNet architecture on the CIFAR-10 dataset. The training process involved
-                data augmentation techniques such as random cropping and horizontal flipping to improve generalization.
-                The model was optimized using the Adam optimizer, and cross-entropy loss was used as the loss function.
-                The training was conducted over 100 epochs with a batch size of 64.
-            </p>
+            <p class="text-muted">The model was trained using a ResNet architecture on the CIFAR-10 dataset. The
+                training process involved data augmentation techniques such as random cropping and horizontal flipping
+                to improve generalization. The model was optimized using the Adam optimizer, and cross-entropy loss was
+                used as the loss function. The training was conducted over 100 epochs with a batch size of 64.</p>
             <h3 class="h5">Detailed Training Steps:</h3>
             <ul>
                 <li>Implemented basic network layers including ReLU activation, fully-connected layers, and softmax
@@ -90,9 +89,7 @@
 
         <section class="mt-5">
             <h2 class="h4">Model Architecture</h2>
-            <p class="text-muted">
-                The ResNet architecture used in this project includes:
-            </p>
+            <p class="text-muted">The ResNet architecture used in this project includes:</p>
             <ul>
                 <li>Convolutional layers with batch normalization and ReLU activation.</li>
                 <li>Residual blocks to mitigate the vanishing gradient problem in deep networks.</li>
@@ -102,9 +99,7 @@
 
         <section class="mt-5">
             <h2 class="h4">Data Augmentation</h2>
-            <p class="text-muted">
-                Data augmentation techniques used include:
-            </p>
+            <p class="text-muted">Data augmentation techniques used include:</p>
             <ul>
                 <li>Random horizontal flipping and rotations to make the model invariant to these transformations.</li>
                 <li>Random cropping and scaling to handle different object sizes and aspect ratios.</li>

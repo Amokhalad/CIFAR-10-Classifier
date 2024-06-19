@@ -29,7 +29,7 @@ async function displayImage(index) {
 		const labelElement = document.getElementById("label");
 		const imageCard = document.querySelector(".image-card");
 
-		imageElement.src = data.image_path;
+		imageElement.src = "../data/" + data.image_path;
 		titleElement.textContent = `Image #${index + 1}`;
 		predictionElement.textContent = data.prediction;
 		labelElement.textContent = data.label;
