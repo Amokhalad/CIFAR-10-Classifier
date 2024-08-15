@@ -55,21 +55,23 @@
         </div>
 
         <section class="mt-5">
-            <button class="btn btn-light grey-border" type="button" data-toggle="collapse"
-                data-target="#incorrect-list-collapse" aria-expanded="false" aria-controls="incorrect-list-collapse">
-                <h2 class="h4">Incorrectly Classified Images</h2>
-            </button>
-            <div class="collapse mt-2" id="incorrect-list-collapse">
-                <ul id="incorrect-list" class="list-group list-group-flush"></ul>
-            </div>
-        </section>
-
-        <section class="mt-5">
             <h2 class="h4">Training Method</h2>
-            <p class="text-muted">The model was trained using a ResNet architecture on the CIFAR-10 dataset. The
-                training process involved data augmentation techniques such as random cropping and horizontal flipping
-                to improve generalization. The model was optimized using the Adam optimizer, and cross-entropy loss was
-                used as the loss function. The training was conducted over 100 epochs with a batch size of 64.</p>
+            <p class="text-muted">The model was trained using a <a href="https://arxiv.org/abs/1512.03385">ResNet
+                    architecture</a> on the CIFAR-10 dataset. The ResNet architecture used in this project includes:</p>
+            <ul>
+                <li>Convolutional layers with batch normalization and ReLU activation.</li>
+                <li>Residual blocks to mitigate the vanishing gradient problem in deep networks.</li>
+                <li>Global average pooling layer followed by a fully connected layer for classification.</li>
+            </ul>
+            <p class="text-muted">The training process involved data augmentation techniques such as:</p>
+            <ul>
+                <li>Random horizontal flipping and rotations to make the model invariant to these transformations.</li>
+                <li>Random cropping and scaling to handle different object sizes and aspect ratios.</li>
+                <li>Color jittering to simulate different lighting conditions.</li>
+            </ul>
+            The model was optimized using the Adam optimizer, and cross-entropy loss was
+            used as the loss function. The training was conducted over 100 epochs with a batch size of 64.</p>
+
             <h3 class="h5">Detailed Training Steps:</h3>
             <ul>
                 <li>Implemented basic network layers including ReLU activation, fully-connected layers, and softmax
@@ -81,30 +83,12 @@
                     the best performance.</li>
             </ul>
             <h3 class="h5">Model Performance:</h3>
-            <ul>
-                <li>Achieved a test accuracy of 93.6% on the CIFAR-10 test set after 200 epochs.</li>
-                <li>Implemented regularization techniques like weight decay to prevent overfitting.</li>
-            </ul>
-        </section>
+            <p>Achieved a test accuracy of 93.6% on the CIFAR-10 test set after 100 epochs, contributing to a score that
+                placed <a
+                    href="https://www.kaggle.com/competitions/cs189-hw6-cifar-spring-2024/leaderboard?tab=public">top 3
+                    on the Kaggle leaderboard</a> during a university competition.
+            </p>
 
-        <section class="mt-5">
-            <h2 class="h4">Model Architecture</h2>
-            <p class="text-muted">The ResNet architecture used in this project includes:</p>
-            <ul>
-                <li>Convolutional layers with batch normalization and ReLU activation.</li>
-                <li>Residual blocks to mitigate the vanishing gradient problem in deep networks.</li>
-                <li>Global average pooling layer followed by a fully connected layer for classification.</li>
-            </ul>
-        </section>
-
-        <section class="mt-5">
-            <h2 class="h4">Data Augmentation</h2>
-            <p class="text-muted">Data augmentation techniques used include:</p>
-            <ul>
-                <li>Random horizontal flipping and rotations to make the model invariant to these transformations.</li>
-                <li>Random cropping and scaling to handle different object sizes and aspect ratios.</li>
-                <li>Color jittering to simulate different lighting conditions.</li>
-            </ul>
         </section>
     </div>
 

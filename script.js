@@ -1,17 +1,15 @@
-const NUM_TEST_IMAGES = 10000; // Adjust as needed
+const NUM_TEST_IMAGES = 10000;
 const BATCH_SIZE = 100;
-const CACHE_SIZE_LIMIT = 500; // Adjust based on memory constraints
+const CACHE_SIZE_LIMIT = 500;
 
-let currentIndex = 0;
 let cache = new Map();
-let incorrectImages = JSON.parse(localStorage.getItem("incorrectImages")) || [];
+let currentIndex = 0;
 
 // Load initial batch of static data
 fetch("static_data.json")
 	.then((response) => response.json())
 	.then((data) => {
 		data.forEach((item) => cache.set(item.index, item));
-		renderIncorrectImages(); // Render the persisted incorrect images
 		displayImage(currentIndex); // Initial load
 		document.getElementById("previous").addEventListener("click", showPreviousImage);
 		document.getElementById("next").addEventListener("click", showNextImage);
@@ -29,23 +27,26 @@ async function displayImage(index) {
 		const labelElement = document.getElementById("label");
 		const imageCard = document.querySelector(".image-card");
 
+		// Clear the previous prediction and reset classes
+		predictionElement.innerHTML = "";
+		predictionElement.className = "card-text";
+		imageCard.className = "card image-card shadow";
+
+		// Show loader for prediction
+		const loader = document.createElement("div");
+		loader.className = "spinner-border text-primary"; // Bootstrap spinner class
+		loader.setAttribute("role", "status");
+		predictionElement.appendChild(loader);
+
 		imageElement.src = data.image_path;
 		titleElement.textContent = `Image #${index + 1}`;
-		predictionElement.textContent = data.prediction;
 		labelElement.textContent = data.label;
 
-		const isIncorrect = data.prediction !== data.label;
-		predictionElement.classList.toggle("incorrect", isIncorrect);
-		predictionElement.classList.toggle("incorrect-border", isIncorrect);
-		imageCard.classList.toggle("incorrect-border", isIncorrect);
-
-		predictionElement.classList.toggle("correct", !isIncorrect);
-		predictionElement.classList.toggle("correct-border", !isIncorrect);
-		imageCard.classList.toggle("correct-border", !isIncorrect);
-
-		if (isIncorrect && !incorrectImages.some((img) => img.index === index)) {
-			addIncorrectImage(data, index);
-		}
+		setTimeout(() => {
+			predictionElement.textContent = data.prediction;
+			const isIncorrect = data.prediction !== data.label;
+			updatePredictionElement(predictionElement, imageCard, isIncorrect);
+		}, Math.floor(Math.random() * (1000 - 500)) + 500);
 
 		currentIndex = index;
 	} else {
@@ -64,7 +65,10 @@ function fetchImageData(index) {
 				displayImage(index);
 			}
 		})
-		.catch((error) => console.error("Error fetching image data:", error));
+		.catch((error) => {
+			console.error("Error fetching image data:", error);
+			alert("Failed to load image. Please try again.");
+		});
 }
 
 function manageCacheSize() {
@@ -74,33 +78,6 @@ function manageCacheSize() {
 			cache.delete(keys[i]);
 		}
 	}
-}
-
-function addIncorrectImage(data, index) {
-	const incorrectList = document.getElementById("incorrect-list");
-	const listItem = document.createElement("li");
-	listItem.textContent = `Image #${index + 1}: Predicted ${data.prediction}, Actual ${data.label}`;
-	listItem.classList.add("list-group-item", "list-group-item-action");
-	listItem.addEventListener("click", () => {
-		displayImage(index);
-	});
-	incorrectList.appendChild(listItem);
-	incorrectImages.push({ index, prediction: data.prediction, label: data.label });
-	localStorage.setItem("incorrectImages", JSON.stringify(incorrectImages)); // Save to localStorage
-}
-
-function renderIncorrectImages() {
-	const incorrectList = document.getElementById("incorrect-list");
-	incorrectList.innerHTML = ""; // Clear any existing list items
-	incorrectImages.forEach((img) => {
-		const listItem = document.createElement("li");
-		listItem.textContent = `Image #${img.index + 1}: Predicted ${img.prediction}, Actual ${img.label}`;
-		listItem.classList.add("list-group-item", "list-group-item-action");
-		listItem.addEventListener("click", () => {
-			displayImage(img.index);
-		});
-		incorrectList.appendChild(listItem);
-	});
 }
 
 const showPreviousImage = () => {
@@ -128,3 +105,13 @@ const preloadImages = (startIdx, count) => {
 		}
 	}
 };
+
+function updatePredictionElement(predictionElement, imageCard, isIncorrect) {
+	predictionElement.classList.toggle("incorrect", isIncorrect);
+	predictionElement.classList.toggle("incorrect-border", isIncorrect);
+	imageCard.classList.toggle("incorrect-border", isIncorrect);
+
+	predictionElement.classList.toggle("correct", !isIncorrect);
+	predictionElement.classList.toggle("correct-border", !isIncorrect);
+	imageCard.classList.toggle("correct-border", !isIncorrect);
+}
